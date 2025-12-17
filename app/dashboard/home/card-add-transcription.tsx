@@ -67,7 +67,7 @@ function CardAdd() {
 
                             <span className="text-xs font-medium text-gray-500">
                                 INVEST
-                            </span>
+                        </span>
                         </button>
                     </div>
 
