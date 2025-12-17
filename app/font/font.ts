@@ -1,6 +1,6 @@
-import { Caveat, Comfortaa } from 'next/font/google'
+import { Caveat, Comfortaa, Outfit } from 'next/font/google'
 
-export const caveat = Caveat({
+export const caveat = Outfit({
     subsets: ['latin'],
     weight: '700'
 })
