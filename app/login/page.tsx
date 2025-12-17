@@ -8,20 +8,24 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import useAppUtils from '../context/utills'
 import { FcGoogle } from 'react-icons/fc'
+import { caveat } from '../font/font'
 
 function SIGNIN() {
 
   const { handleGoogleLogin } = useAppAuth()
-  const { loading, setLoading } = useAppUtils()
+  const { loading } = useAppUtils()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   return (
-    <div className='flex justify-center items-center min-h-[90vh]' >
+    <div className='flex justify-center items-center min-h-screen' >
       <Card className="w-full max-w-md shadow-xl border-slate-200 dark:border-slate-800">
         <CardHeader className="space-y-2 text-center">
-          <CardTitle className="text-3xl font-bold tracking-tight">Bem-vindo</CardTitle>
+          <CardTitle className="text-3xl font-bold tracking-tight">
+            <div className={`${caveat.className} text-3xl font-extrabold text-[#39BE00]`} >financebg</div>
+            Bem-vindo
+            </CardTitle>
           <CardDescription className="text-base">Entre com sua conta para continuar</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

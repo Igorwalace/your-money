@@ -10,12 +10,12 @@ function Dashboard() {
 
 
     return (
-        <main className="px-5 py-3 space-y-5" >
+        <main className="px-5 py-3 space-y-5 max-w-7xl m-auto" >
             <Card className="px-5 mt-3" >
                 <div className='md:flex items-center justify-between' >
                     <DAY />
                     <div className='flex md:justify-end justify-between mt-5 md:mt-0 items-center gap-7' >
-                        <ButtonRelatorio />
+                        {/* <ButtonRelatorio /> */}
                         <Month />
                     </div>
                 </div>

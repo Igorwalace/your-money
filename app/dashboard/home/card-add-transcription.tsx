@@ -1,9 +1,9 @@
 'use client'
 import { Card } from '@/components/ui/card'
-import { Minus, PiggyBank, Plus, TrendingDown, TrendingUp } from 'lucide-react'
-import { DonutStatus } from './donuts'
+import { Minus, PiggyBank, Plus } from 'lucide-react'
 import FormDialog from './form-dialog'
 import useAppUtils from '@/app/context/utills'
+import CardControleGastis from './card-controle-gastos'
 
 function CardAdd() {
 
@@ -11,7 +11,7 @@ function CardAdd() {
 
     return (
         <>
-            <main className="grid grid-cols-2 gap-3 items-start">
+            <main className="grid md:grid-cols-2 grid-cols-1 gap-3 items-start">
                 <FormDialog />
                 <Card className='px-5' >
                     <div>
@@ -36,7 +36,7 @@ function CardAdd() {
                             </span>
                         </button>
                         <button
-                        onClick={() => {
+                            onClick={() => {
                                 setOpenForm(true)
                                 setTransacao('receita')
                             }}
@@ -53,7 +53,7 @@ function CardAdd() {
                             </span>
                         </button>
                         <button
-                        onClick={() => {
+                            onClick={() => {
                                 setOpenForm(true)
                                 setTransacao('investimento')
                             }}
@@ -67,36 +67,12 @@ function CardAdd() {
 
                             <span className="text-xs font-medium text-gray-500">
                                 INVEST
-                        </span>
+                            </span>
                         </button>
                     </div>
 
                 </Card>
-                <Card className='px-5 flex flex-col justify-center items-center' >
-
-                    <div>
-                        <h1 className='md:text-base text-sm font-bold text-center'>controle de gastos</h1>
-                    </div>
-
-                    <div className='flex justify-around w-full items-center gap-2' >
-                        <DonutStatus />
-                        <div className='flex flex-col gap-5' >
-                            <div className='flex justify-start items-center gap-3' >
-                                <TrendingUp color="#39BE00" size='18' />
-                                <h1>Gastos</h1>
-                            </div>
-                            <div className='flex justify-start items-center gap-3' >
-                                <TrendingDown color="#E53935" size='18' />
-                                <h1>Despesas</h1>
-                            </div>
-                            <div className='flex justify-start items-center gap-3 ' >
-                                <PiggyBank color='#E0BC00' size='18' />
-                                <h1>Investimentos</h1>
-                            </div>
-                        </div>
-                    </div>
-
-                </Card>
+                <CardControleGastis />
 
             </main>
         </>
