@@ -1,14 +1,14 @@
 'use client'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select'
 import AddCard from './add-card'
 import { useEffect, useState } from 'react'
 import { dbId, tableIdCards } from '@/app/utils/ts'
 import { db } from '@/app/utils/appwrite'
 import { Models, Query } from 'appwrite'
 import { UseUser } from '@/app/user/user'
-import { SelectItem } from '@radix-ui/react-select'
 import useAppUtils from '@/app/context/utills'
+import { toast } from 'sonner'
+import useAppAmount from '@/app/context/amount'
 
 export interface Card extends Models.Row {
     userId: string
@@ -21,14 +21,14 @@ export interface Card extends Models.Row {
 interface SelectCardProps {
     cardId: string
     setCardId: React.Dispatch<React.SetStateAction<string>>
-    errors: boolean
 }
 
-function SelectCard({ cardId, setCardId, errors }: SelectCardProps) {
+function SelectCard({ cardId, setCardId }: SelectCardProps) {
 
     const { user } = UseUser()
     const [card, setCard] = useState<Card[]>()
-    const { openDialogAddCard } = useAppUtils()
+    const { openDialogAddCard, setOpenDialogAddCard } = useAppUtils()
+    const { cardsTotal } = useAppAmount()
 
     useEffect(() => {
         if (!user?.uid) return
@@ -73,15 +73,19 @@ function SelectCard({ cardId, setCardId, errors }: SelectCardProps) {
                             ))}
                         </select>
                     </div>
-
-
+                    <div
+                        onClick={() => {
+                            if (cardsTotal > 2) {
+                                toast.info('Você atingiu o número máximo de cartãoes adicionados. (3)')
+                                return
+                            }
+                            setOpenDialogAddCard(true)
+                        }}
+                        className="mt-3 text-sm cursor-pointer hover:bg-accent p-2 rounded-lg">
+                        Adicionar cartão
+                    </div>
                     <AddCard />
                 </div>
-                {errors && (
-                    <span className="text-xs text-red-500">obrigatório</span>
-                )}
-
-
             </div>
         </>
     )

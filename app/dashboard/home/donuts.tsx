@@ -7,16 +7,21 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 export function DonutStatus() {
 
-    const { saldoGeral, despesaTotalMonth, receitaTotalMonth, investTotalMonth } = useAppAmount()
+    const { despesaTotalMonth, receitaTotalMonth, investTotalMonth } = useAppAmount()
 
-    const data = saldoGeral == 0 || despesaTotalMonth == 0 || receitaTotalMonth == 0 || investTotalMonth == 0
+    const hasData =
+        receitaTotalMonth !== 0 ||
+        despesaTotalMonth !== 0 ||
+        investTotalMonth !== 0 
+
+    const data = hasData
         ? [
             { name: 'Positivo', value: receitaTotalMonth, color: '#39BE00' },
             { name: 'Negativo', value: despesaTotalMonth, color: '#E53935' },
             { name: 'Neutro', value: investTotalMonth, color: '#E0BC00' },
-            { name: 'Saldo Geral', value: saldoGeral, color: '#4052D6' },
-          ]
+        ].filter(item => item.value !== 0) // 🔥 remove fatia zerada
         : [{ name: 'Vazio', value: 1, color: '#F0F0F0' }];
+
 
     return (
         <div className='w-72 h-72' >

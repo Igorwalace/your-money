@@ -1,10 +1,10 @@
 // shadcn
-import ButtonRelatorio from './butto-relatório'
 import { Card } from "@/components/ui/card";
 import DAY from "./day";
 import CardAdd from "./card-add-transcription";
 import Month from './month';
 import Saldos from './saldos';
+import CardGerenciarCartao from "./card-gerenciar";
 
 function Dashboard() {
 
@@ -23,6 +23,7 @@ function Dashboard() {
             </Card>
 
             <CardAdd />
+            <CardGerenciarCartao />
         </main>
     )
 }

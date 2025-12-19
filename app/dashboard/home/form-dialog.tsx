@@ -28,7 +28,7 @@ import SelectCard from "./select-card";
 
 function FormDialog() {
 
-    const { setOpenForm, openForm, transacao, setLoading, loading, stateAddTransacao, setStateAddTransacao } = useAppUtils()
+    const { setOpenForm, openForm, transacao, setLoading, loading, setStateAddTransacao } = useAppUtils()
     const { user } = UseUser()
 
     const [des, setDes] = useState('')
@@ -43,7 +43,6 @@ function FormDialog() {
     const [errors, setErrors] = useState({
         descricao: false,
         valor: false,
-        card: false,
         metodo: false
     })
 
@@ -65,7 +64,6 @@ function FormDialog() {
             descricao: des.trim() === '' ? prev.descricao : false,
             valor: !saldo || saldo <= 0 ? prev.valor : false,
             metodo: metodo === '' ? prev.metodo : false,
-            card: cardId === '' ? prev.card : false,
         }))
     }, [des, saldo, metodo, cardId])
 
@@ -85,7 +83,6 @@ function FormDialog() {
         const newErrors = {
             descricao: !des.trim(),
             valor: !saldo || saldo <= 0,
-            card: !cardId,
             metodo: !metodo
         }
 
@@ -228,7 +225,7 @@ function FormDialog() {
                             </div>
 
                             {/* Cartão */}
-                            <SelectCard cardId={cardId} setCardId={setCardId} errors={errors.card} />
+                            <SelectCard cardId={cardId} setCardId={setCardId} />
 
                             {/* Data */}
                             <div className="space-y-1">

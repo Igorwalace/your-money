@@ -6,7 +6,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 
 // ts
-import { dbId, tableIdTransacao, Transacao } from "../utils/ts";
+import { dbId, tableIdCards, tableIdTransacao, Transacao } from "../utils/ts";
 
 // appwrite
 import { db } from "../utils/appwrite";
@@ -30,6 +30,8 @@ export function AppAmount({ children }: {
 
     const [transacao, setTransacao] = useState<Transacao[]>([])
 
+    const [cardsTotal, setCardsTotal] = useState(0)
+
     const [saldoGeral, setSaldoGeral] = useState(0)
     const [receitaTotalMonth, setReceitaTotalMonth] = useState(0)
     const [despesaTotalMonth, setDespesaTotalMonth] = useState(0)
@@ -41,15 +43,22 @@ export function AppAmount({ children }: {
         if (!user?.uid) return
 
         const fetchCards = async () => {
-            const response = await db.listRows<Transacao>({
+            const transacao = await db.listRows<Transacao>({
                 databaseId: dbId!,
                 tableId: tableIdTransacao!,
                 queries: [
                     Query.equal('UserId', user.uid)
                 ]
             })
-
-            setTransacao(response.rows)
+            const cards = await db.listRows<Transacao>({
+                databaseId: dbId!,
+                tableId: tableIdCards!,
+                queries: [
+                    Query.equal('userId', user.uid)
+                ]
+            })
+            setCardsTotal(cards.total)
+            setTransacao(transacao.rows)
         }
 
         fetchCards()
@@ -108,7 +117,7 @@ export function AppAmount({ children }: {
 
     return (
         <AppContext.Provider value={{
-            saldoGeral, setMonthSelect, monthSelect, despesaTotalMonth, receitaTotalMonth, investTotalMonth
+            saldoGeral, setMonthSelect, monthSelect, despesaTotalMonth, receitaTotalMonth, investTotalMonth, cardsTotal, setCardsTotal
         }}>
             {children}
         </AppContext.Provider>
